@@ -6,4 +6,4 @@ before_script:
   - npm install -g uglify-js
   - make
 script:
-  - mocha --reporter spec
+  - mocha --reporter tap
