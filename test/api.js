@@ -74,7 +74,7 @@ describe('Sifter', function() {
 		});
 
 		describe('returned results', function() {
-			var sifter, options, result, result_empty;
+			var sifter, options, result, result_empty, result_all;
 
 			before(function() {
 				sifter = new Sifter([
@@ -85,9 +85,14 @@ describe('Sifter', function() {
 					{title: 'Denali', location: 'Alaska', continent: 'North America'}
 				]);
 
-				options = {limit: 1, fields: ['title', 'location', 'continent']};
-				result = sifter.search('switzerland europe', options);
+				options      = {limit: 1, fields: ['title', 'location', 'continent']};
+				result       = sifter.search('switzerland europe', options);
 				result_empty = sifter.search('awawfawfawf', options);
+				result_all   = sifter.search('', {
+					fields: ['title', 'location', 'continent'],
+					sort: 'title',
+					direction: 'asc'
+				});
 			});
 
 			it('should not vary when using an array vs a hash as a data source', function() {
@@ -106,11 +111,20 @@ describe('Sifter', function() {
 				it('should be an array', function() {
 					assert.equal(Array.isArray(result.items), true);
 					assert.equal(Array.isArray(result_empty.items), true);
+					assert.equal(Array.isArray(result_all.items), true);
+				});
+				it('should include entire set if no query provided', function() {
+					assert.equal(result_all.items.length, 5);
 				});
 				it('should not have a length that exceeds "limit" option', function() {
 					assert.equal(result.items.length > options.limit, false);
 				});
-				it('should not contain any items with a score of zero', function() {
+				it('should not contain any items with a score not equal to 1 (without query)', function() {
+					for (var i = 0, n = result_all.items.length; i < n; i++) {
+						assert.equal(result_all.items[i].score, 1);
+					}
+				});
+				it('should not contain any items with a score of zero (with query)', function() {
 					for (var i = 0, n = result.items.length; i < n; i++) {
 						assert.notEqual(result.items[i].score, 0);
 					}
@@ -127,14 +141,17 @@ describe('Sifter', function() {
 					describe('"score" property', function() {
 						it('should exist', function() {
 							assert.notEqual(typeof result.items[0].score, 'undefined');
+							assert.notEqual(typeof result_all.items[0].score, 'undefined');
 						});
 						it('should be a number', function() {
 							assert.equal(typeof result.items[0].score, 'number');
+							assert.equal(typeof result_all.items[0].score, 'number');
 						});
 					});
 					describe('"id" property', function() {
 						it('should exist', function() {
 							assert.notEqual(typeof result.items[0].id, 'undefined');
+							assert.notEqual(typeof result_all.items[0].id, 'undefined');
 						});
 					});
 				});

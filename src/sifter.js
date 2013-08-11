@@ -233,8 +233,8 @@
 					var field = options.sort;
 					var multiplier = options.direction === 'desc' ? -1 : 1;
 					return function(a, b) {
-						a = a && String(self.items[a.value][field] || '').toLowerCase();
-						b = b && String(self.items[b.value][field] || '').toLowerCase();
+						a = a && String(self.items[a.id][field] || '').toLowerCase();
+						b = b && String(self.items[b.id][field] || '').toLowerCase();
 						if (a > b) return 1 * multiplier;
 						if (b > a) return -1 * multiplier;
 						return 0;
