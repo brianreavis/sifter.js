@@ -1,0 +1,15 @@
+{
+	"name": "sifter",
+	"keywords": ["search","filter","sift","data","results","match","sort","autocomplete"],
+	"description": "A library for textually searching arrays and hashes of objects by property (or multiple properties). Designed specifically for autocomplete.",
+	"version": "0.0.1",
+	"author": "Brian Reavis <brian@thirdroute.com>",
+	"main": "./sifter.js",
+	"repository": {
+		"type": "git",
+		"url": "git://github.com/brianreavis/sifter.js.git"
+	},
+	"dependencies": {},
+	"devDependencies": {},
+	"engines": {"node": "*"}
+}
