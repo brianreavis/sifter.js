@@ -73,6 +73,12 @@ describe('Sifter', function() {
 			});
 		});
 
+		it('should allow "fields" option to be a string', function() {
+			var sifter = new Sifter([{field: 'a'}, {}]);
+			var result = sifter.search('a', {fields: 'field'});
+			assert.equal(result.items[0].id, 0);
+		});
+
 		describe('returned results', function() {
 			var sifter, options, result, result_empty, result_all;
 
@@ -158,6 +164,9 @@ describe('Sifter', function() {
 			});
 
 			describe('"options"', function() {
+				it('should not be a reference to original options', function() {
+					assert.equal(result.options === options, false);
+				});
 				it('should match original search options', function() {
 					assert.deepEqual(result.options, options);
 				});
