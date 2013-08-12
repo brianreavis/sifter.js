@@ -14,7 +14,10 @@
 		"Makefile",
 		"test",
 		"src",
-		"*.sh"
+		"benchmark",
+		"node_modules",
+		"*.sh",
+		".travis.yml"
 	],
 	"dependencies": {}
 }
