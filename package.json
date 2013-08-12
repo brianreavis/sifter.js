@@ -10,6 +10,9 @@
 		"url": "git://github.com/brianreavis/sifter.js.git"
 	},
 	"dependencies": {},
-	"devDependencies": {},
+	"devDependencies": {
+		"humanize": "0.0.x",
+		"microtime": "0.4.x"
+	},
 	"engines": {"node": "*"}
 }

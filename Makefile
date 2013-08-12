@@ -1,8 +1,10 @@
-.PHONY: compile test release
+.PHONY: compile test release benchmark
 
 all: compile
 test:
 	mocha --reporter spec
+benchmark:
+	node --expose-gc benchmark/index.js
 compile:
 	./build.sh
 release:
