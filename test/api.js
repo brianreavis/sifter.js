@@ -97,7 +97,6 @@ describe('Sifter', function() {
 
 	});
 
-
 	describe('#search()', function() {
 
 		it('should not throw if an element does not contain search field', function() {
