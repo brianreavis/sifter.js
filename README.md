@@ -1,12 +1,11 @@
 # sifter.js
+[![NPM version](https://badge.fury.io/js/sifter.png)](http://badge.fury.io/js/sifter)
 [![Build Status](https://travis-ci.org/brianreavis/sifter.js.png?branch=master)](https://travis-ci.org/brianreavis/sifter.js)
 
 Sifter is a [CommonJS](http://www.commonjs.org/) library for textually searching arrays and hashes of objects by property (or multiple properties). It's designed specifically for autocomplete. The process is three-step: *score*, *filter*, *sort*.
 
 * **Supports díåcritîçs.**<br>For example, if searching for "montana" and an item in the set has a value of "montaña", it will still be matched.
 * **Smart sorting.**<br>Items are scored intelligently depending on where a match is found in the string (how close to the beginning) and what percentage of the string matches.
-
-#### Installation
 
 ```sh
 $ npm install sifter # node.js
@@ -68,7 +67,9 @@ The sorting options are only acknowledged when searching by an empty string. Oth
 
 ## API
 
-### search(query, options)
+#### .search(query, options)
+
+Performs a search for `query` with the provided `options`.
 
 <table width="100%">
 	<tr>
@@ -113,7 +114,7 @@ When issuing a pull request, please exclude "sifter.js" and "sifter.min.js" in t
 
 ## License
 
-Copyright &copy; 2013 [Brian Reavis](http://twitter.com/brianreavis) & [Contributors](https://github.com/brianreavis/selectize.js/graphs/contributors)
+Copyright &copy; 2013 [Brian Reavis](http://twitter.com/brianreavis) & [Contributors](https://github.com/brianreavis/sifter.js/graphs/contributors)
 
 Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with the License. You may obtain a copy of the License at: http://www.apache.org/licenses/LICENSE-2.0
 
