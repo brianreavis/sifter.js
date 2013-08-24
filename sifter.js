@@ -109,14 +109,15 @@
 	 * Good matches will have a higher score than poor matches.
 	 * If an item is not a match, 0 will be returned by the function.
 	 *
-	 * @param {object} search
+	 * @param {object|string} search
+	 * @param {object} options (optional)
 	 * @returns {function}
 	 */
-	Sifter.prototype.getScoreFunction = function(search) {
+	Sifter.prototype.getScoreFunction = function(search, options) {
 		var self, search;
 
 		self   = this;
-		search = self.prepareSearch(search);
+		search = self.prepareSearch(search, options);
 		tokens = search.tokens;
 
 		var calculateFieldScore = (function() {

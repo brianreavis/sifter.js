@@ -64,6 +64,36 @@ describe('Sifter', function() {
 
 	});
 
+	describe('#getScoreFunction()', function() {
+
+		describe('with query and options', function() {
+
+			it('should return a function that returns a number', function() {
+				var score, search, sifter = new Sifter([]);
+
+				score = sifter.getScoreFunction('test', {fields: ['a','b']});
+				assert.equal(typeof score({a: 'test'}), 'number');
+				assert.equal(score({a: 'test'}) > 0, true);
+				assert.equal(typeof score({}), 'number');
+			});
+		});
+
+		describe('with pre-prepared search', function() {
+
+			it('should return a function that returns a number', function() {
+				var score, search, sifter = new Sifter([]);
+
+				search = sifter.prepareSearch('test', {fields: ['a','b']});
+				score = sifter.getScoreFunction(search);
+				assert.equal(typeof score({a: 'test'}), 'number');
+				assert.equal(score({a: 'test'}) > 0, true);
+				assert.equal(typeof score({}), 'number');
+			});
+
+		});
+
+	});
+
 	describe('#prepareSeach()', function() {
 
 		it('should return original object if passed an object', function() {
