@@ -75,7 +75,7 @@ Performs a search for `query` with the provided `options`.
 	<tr>
 		<th align="left">Option</th>
 		<th>Type</th>
-		<th align="left">Description</th>
+		<th align="left" width="100%">Description</th>
 	</tr>
 	<tr>
 		<td valign="top">"fields"</td>
