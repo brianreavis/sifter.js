@@ -26,7 +26,7 @@ var csv       = require('node-csv');
 var Stream    = require('stream');
 var humanize  = require('humanize');
 var microtime = require('microtime');
-var Sifter    = require('../sifter');
+var Sifter    = require('../src/sifter');
 var highlight = function(obj) { return cardinal.highlight(JSON.stringify(obj), {json: true}); };
 
 var raw, data, result, t_start, t_end;
@@ -125,6 +125,7 @@ var step_output = function(callback) {
 	var i, n, json;
 
 	console.log('query = ' + JSON.stringify(result.query));
+	console.log('fields = ' + result.options.fields.join(', '));
 	console.log('total results = ' + humanize.numberFormat(result.total, 0));
 	console.log('total searched = ' + humanize.numberFormat(data.length, 0));
 	console.log('search time = ' + humanize.numberFormat((t_end - t_start) / 1000) + 'ms');

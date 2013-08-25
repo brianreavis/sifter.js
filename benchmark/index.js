@@ -19,7 +19,7 @@ process.chdir(__dirname);
 var fs        = require('fs');
 var humanize  = require('humanize');
 var microtime = require('microtime');
-var Sifter    = require('../sifter.js');
+var Sifter    = require('../src/sifter');
 
 var measure_time = function(fn) {
 	var start, end;
