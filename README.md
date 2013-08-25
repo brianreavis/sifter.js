@@ -65,7 +65,7 @@ The sorting options are only acknowledged when searching by an empty string. Oth
 }
 ```
 
-## API
+### API
 
 #### .search(query, options)
 
@@ -75,7 +75,7 @@ Performs a search for `query` with the provided `options`.
 	<tr>
 		<th align="left">Option</th>
 		<th>Type</th>
-		<th align="left">Description</th>
+		<th align="left" width="100%">Description</th>
 	</tr>
 	<tr>
 		<td valign="top">"fields"</td>
@@ -98,6 +98,20 @@ Performs a search for `query` with the provided `options`.
 		<td valign="top">The order in which to sort results ("asc" or "desc").</td>
 	</tr>
 </table>
+
+## CLI
+
+![CLI](http://i.imgur.com/fSQBnWZ.png)
+
+Sifter comes with a command line interface that's useful for testing on datasets. It accepts JSON and CSV data, either from a file or from stdin (unix pipes). If using CSV data, the first line of the file must be a header row.
+```sh
+$ npm install -g sifter
+```
+
+```sh
+$ cat file.csv | sifter --query="ant" --fields=title
+$ sifter --query="ant" --fields=title --file=file.csv
+```
 
 ## Contributing
 

@@ -42,7 +42,9 @@ var time_baseline = measure_time(function() {
 var corpus = (function() {
 	var lines, i, n, items;
 
-	lines = fs.readFileSync('corpus.txt', 'utf8').split('\n');
+	lines = fs.readFileSync('corpus.csv', 'utf8').split('\n');
+	lines.shift();
+
 	items = [];
 	for (i = 0, n = Math.floor(lines.length / 5); i < n; i++) {
 		items.push({

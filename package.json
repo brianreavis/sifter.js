@@ -9,10 +9,16 @@
 		"type": "git",
 		"url": "git://github.com/brianreavis/sifter.js.git"
 	},
-	"dependencies": {},
-	"devDependencies": {
+	"bin": {
+		"sifter": "./bin/sifter.js"
+	},
+	"dependencies": {
+		"optimist": "0.6.x",
+		"cardinal": "0.4.x",
+		"async": "0.2.x",
 		"humanize": "0.0.x",
-		"microtime": "0.4.x"
+		"microtime": "0.4.x",
+		"node-csv": "https://github.com/voodootikigod/node-csv/tarball/master"
 	},
 	"engines": {"node": "*"}
 }
