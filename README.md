@@ -2,7 +2,7 @@
 [![NPM version](https://badge.fury.io/js/sifter.png)](http://badge.fury.io/js/sifter)
 [![Build Status](https://travis-ci.org/brianreavis/sifter.js.png?branch=master)](https://travis-ci.org/brianreavis/sifter.js)
 
-Sifter is a [CommonJS](http://www.commonjs.org/) library for textually searching arrays and hashes of objects by property (or multiple properties). It's designed specifically for autocomplete. The process is three-step: *score*, *filter*, *sort*.
+Sifter is a client and server-side library (via [UMD](https://github.com/umdjs/umd)) for textually searching arrays and hashes of objects by property – or multiple properties. It's designed specifically for autocomplete. The process is three-step: *score*, *filter*, *sort*.
 
 * **Supports díåcritîçs.**<br>For example, if searching for "montana" and an item in the set has a value of "montaña", it will still be matched.
 * **Smart sorting.**<br>Items are scored intelligently depending on where a match is found in the string (how close to the beginning) and what percentage of the string matches.
