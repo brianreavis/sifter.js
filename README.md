@@ -27,7 +27,7 @@ var sifter = new Sifter([
 
 var result = sifter.search('anna', {
 	fields: ['title', 'location', 'continent'],
-	sort: [{field: 'title'}],
+	sort: [{field: 'title', direction: 'asc'}],
 	direction: 'desc',
 	limit: 3
 });
@@ -47,7 +47,9 @@ The sorting options are only acknowledged when searching by an empty string. Oth
 {
 	"options": {
 		"fields": ["title", "location", "continent"],
-		"sort": [{"field": title"}],
+		"sort": [
+			{"field": "title", "direction": "asc"}
+		],
 		"direction": "desc",
 		"limit": 3
 	},
@@ -67,7 +69,7 @@ The sorting options are only acknowledged when searching by an empty string. Oth
 
 ### API
 
-#### .search(query, options)
+#### #.search(query, options)
 
 Performs a search for `query` with the provided `options`.
 
@@ -90,7 +92,7 @@ Performs a search for `query` with the provided `options`.
 	<tr>
 		<td valign="top">"sort"</td>
 		<td valign="top">array</td>
-		<td valign="top">An array fields to sort by. {field: "[name]", direction: "[asc|desc]"}. The order of the array defines the sort precedence.</td>
+		<td valign="top">An array of fields to sort by. Each item should be an object containing at least a "field" property. Optionally, "direction" can be set to "asc" or "desc". The order of the array defines the sort precedence.<br><br>Unless present, a special "$score" property will be automatically added to the beginning of the sort list. This will make results sorted primarily by match quality (descending).</td>
 	</tr>
 	<tr>
 		<td valign="top">"filter"</td>
