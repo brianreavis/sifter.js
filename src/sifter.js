@@ -185,6 +185,102 @@
 	};
 
 	/**
+	 * Returns a function that can be used to compare two
+	 * results, for sorting purposes.
+	 *
+	 * @param {string|object} search
+	 * @param {object} options
+	 * @return function(a,b)
+	 */
+	Sifter.prototype.getSortFunction = function(search, options) {
+		var i, n, self, field, fields, fields_count, multiplier, multipliers, get_field, implicit_score;
+		self   = this;
+		search = self.prepareSearch(search, options);
+
+		/**
+		 * Fetches the specified sort field value
+		 * from a search result item.
+		 *
+		 * @param  {string} name
+		 * @param  {object} result
+		 * @return {mixed}
+		 */
+		get_field  = function(name, result) {
+			if (name === '$score') return result.score;
+			return self.items[result.id][name];
+		};
+
+		// parse options
+		if (!options.sort) {
+			fields = [];
+		} else if (!is_array(options.sort)) {
+			fields = [options.sort];
+		} else {
+			fields = [];
+			for (i = 0, n = options.sort.length; i < n; i++) {
+				if (search.query || options.sort[i].field !== '$score') {
+					fields.push(options.sort[i]);
+				}
+			}
+		}
+
+		// the "$score" field is implied to be the primary
+		// sort field, unless it's manually specified
+		if (search.query) {
+			implicit_score = true;
+			for (i = 0, n = fields.length; i < n; i++) {
+				if (fields[i].field === '$score') {
+					implicit_score = false;
+					break;
+				}
+			}
+			if (implicit_score) {
+				fields.unshift({field: '$score', direction: 'desc'});
+			}
+		} else {
+			for (i = 0, n = fields.length; i < n; i++) {
+				if (fields[i].field === '$score') {
+					fields.splice(i, 1);
+					break;
+				}
+			}
+		}
+
+		multipliers = [];
+		for (i = 0, n = fields.length; i < n; i++) {
+			multipliers.push(fields[i].direction === 'desc' ? -1 : 1);
+		}
+
+		// build function
+		fields_count = fields.length;
+		if (!fields_count) {
+			return function() { return 0; };
+		} else if (fields_count === 1) {
+			field = fields[0].field;
+			multiplier = multipliers[0];
+			return function(a, b) {
+				return multiplier * cmp(
+					get_field(field, a),
+					get_field(field, b)
+				);
+			};
+		} else {
+			return function(a, b) {
+				var i, result, a_value, b_value, field;
+				for (i = 0; i < fields_count; i++) {
+					field = fields[i].field;
+					result = multipliers[i] * cmp(
+						get_field(field, a),
+						get_field(field, b)
+					);
+					if (result) return result;
+				}
+				return 0;
+			};
+		}
+	};
+
+	/**
 	 * Parses a search query and returns an object
 	 * with tokens and fields ready to be populated
 	 * with results.
@@ -242,31 +338,16 @@
 		if (query.length) {
 			self.iterator(self.items, function(item, id) {
 				score = calculateScore(item);
-				if (score > 0) {
+				if (options.filter === false || score > 0) {
 					search.items.push({'score': score, 'id': id});
 				}
-			});
-			search.items.sort(function(a, b) {
-				return b.score - a.score;
 			});
 		} else {
 			self.iterator(self.items, function(item, id) {
 				search.items.push({'score': 1, 'id': id});
 			});
-			if (options.sort) {
-				search.items.sort((function() {
-					var field = options.sort;
-					var multiplier = options.direction === 'desc' ? -1 : 1;
-					return function(a, b) {
-						a = a && String(self.items[a.id][field] || '').toLowerCase();
-						b = b && String(self.items[b.id][field] || '').toLowerCase();
-						if (a > b) return 1 * multiplier;
-						if (b > a) return -1 * multiplier;
-						return 0;
-					};
-				})());
-			}
 		}
+		search.items.sort(self.getSortFunction(search, options));
 
 		// apply limits
 		search.total = search.items.length;
@@ -279,6 +360,17 @@
 
 	// utilities
 	// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
+	var cmp = function(a, b) {
+		if (typeof a === 'number' && typeof b === 'number') {
+			return a > b ? 1 : (a < b ? -1 : 0);
+		}
+		a = String(a || '').toLowerCase();
+		b = String(b || '').toLowerCase();
+		if (a > b) return 1;
+		if (b > a) return -1;
+		return 0;
+	};
 
 	var extend = function(a, b) {
 		var i, n, k, object;

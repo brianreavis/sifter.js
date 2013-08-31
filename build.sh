@@ -8,5 +8,8 @@ banner="/*! sifter.js | https://github.com/brianreavis/sifter.js | Apache Licens
 cp src/sifter.js sifter.js
 uglifyjs --mangle -b beautify=false,ascii-only=true --output $out_min $out
 echo "$banner" | cat - $out_min > temp && mv temp $out_min
-
 unset IFS
+
+# size report
+bytes=`cat $out_min | gzip -9f | wc -c`
+echo  "$bytes bytes (gzipped)"

@@ -142,6 +142,123 @@ describe('Sifter', function() {
 			assert.equal(result.items[0].id, 0);
 		});
 
+		describe('sorting', function() {
+			it('should work with one field (as object)', function() {
+				var sifter = new Sifter([
+					{field: 'aaa'},
+					{field: 'add'},
+					{field: 'abb'},
+				]);
+				var result = sifter.search('', {
+					fields: 'field',
+					sort: {field: 'field'},
+					direction: 'asc'
+				});
+				assert.equal(result.items[0].id, 0);
+				assert.equal(result.items[1].id, 2);
+				assert.equal(result.items[2].id, 1);
+			});
+			it('should work with one field (as array)', function() {
+				var sifter = new Sifter([
+					{field: 'aaa'},
+					{field: 'add'},
+					{field: 'abb'},
+				]);
+				var result = sifter.search('', {
+					fields: 'field',
+					sort: [{field: 'field'}],
+					direction: 'asc'
+				});
+				assert.equal(result.items[0].id, 0);
+				assert.equal(result.items[1].id, 2);
+				assert.equal(result.items[2].id, 1);
+			});
+			it('should work with multiple fields and respect priority', function() {
+				var sifter = new Sifter([
+					{a: 'bbb', b: 'bbb'},
+					{a: 'bbb', b: 'ccc'},
+					{a: 'bbb', b: 'aaa'},
+					{a: 'aaa'},
+				]);
+				var result = sifter.search('', {
+					fields: 'field',
+					sort: [
+						{field: 'a'},
+						{field: 'b'}
+					],
+					direction: 'asc'
+				});
+				assert.equal(result.items[0].id, 3);
+				assert.equal(result.items[1].id, 2);
+				assert.equal(result.items[2].id, 0);
+				assert.equal(result.items[3].id, 1);
+			});
+			it('should respect numeric fields', function() {
+				var sifter = new Sifter([
+					{field: 1.0},
+					{field: 12.9},
+					{field: 9.1},
+					{field: -9.0},
+				]);
+				var result = sifter.search('', {
+					fields: 'field',
+					sort: [{field: 'field'}]
+				});
+				assert.equal(result.items[0].id, 3);
+				assert.equal(result.items[1].id, 0);
+				assert.equal(result.items[2].id, 2);
+				assert.equal(result.items[3].id, 1);
+			});
+			it('should respect sort direction', function() {
+				var sifter = new Sifter([
+					{a: 'bbb', b: 'rrr'},
+					{a: 'bbb', b: 'aaa'},
+					{a: 'aaa', b: 'rrr'},
+					{a: 'aaa', b: 'aaa'}
+				]);
+				var result = sifter.search('', {
+					fields: 'field',
+					sort: [
+						{field: 'b', direction: 'desc'},
+						{field: 'a', direction: 'asc'},
+					]
+				});
+				assert.equal(result.items[0].id, 2);
+				assert.equal(result.items[1].id, 0);
+				assert.equal(result.items[2].id, 3);
+				assert.equal(result.items[3].id, 1);
+			});
+			it('should add implicit "$score" field when query present', function() {
+				var sifter = new Sifter([
+					{field: 'yoo'},
+					{field: 'book'},
+				]);
+				var result = sifter.search('oo', {
+					fields: 'field',
+					sort: [{field: 'field'}]
+				});
+				assert.equal(result.items[0].id, 0);
+				assert.equal(result.items[1].id, 1);
+			});
+			it('should not add implicit "$score" field if explicitly given', function() {
+				var sifter = new Sifter([
+					{field: 'boooo'},
+					{field: 'boo'},
+					{field: 'aaa'},
+				]);
+				console.log('!!!!');
+				var result = sifter.search('oo', {
+					filter: false,
+					fields: 'field',
+					sort: [{field: 'field'}, {field: '$score'}]
+				});
+				console.dir(result.items);
+				assert.equal(result.items[0].id, 2);
+				assert.equal(result.items[1].id, 1);
+				assert.equal(result.items[2].id, 0);
+			});
+		});
+
 		describe('returned results', function() {
 			var sifter, options, result, result_empty, result_all;
 
@@ -159,7 +276,7 @@ describe('Sifter', function() {
 				result_empty = sifter.search('awawfawfawf', options);
 				result_all   = sifter.search('', {
 					fields: ['title', 'location', 'continent'],
-					sort: 'title',
+					sort: [{field: 'title'}],
 					direction: 'asc'
 				});
 			});

@@ -105,42 +105,42 @@ console.log('\033[1;30m' + humanize.numberFormat(searches_limit, 0) + ' trials (
 console.log('\033[1;30m' + humanize.numberFormat(corpus.length, 0) + ' options (index size)\033[0;39m');
 console.log('\n\033[32mResults:\033[0;39m');
 
-trial('No query', searches_mixed, {query: '', options: {fields: ['a'], sort: 'a', direction: 'asc'}});
+trial('No query', searches_mixed, {query: '', options: {fields: ['a'], sort: [{field: 'a'}], direction: 'asc'}});
 
 console.log('');
-trial('1 field search', searches_mixed, {options: {fields: ['a'], sort: 'a', direction: 'asc'}});
-trial('1 field search (1 letter)', searches_1letter, {options: {fields: ['a'], sort: 'a', direction: 'asc'}});
-trial('1 field search (2 letter)', searches_2letter, {options: {fields: ['a'], sort: 'a', direction: 'asc'}});
-trial('1 field search (3 letter)', searches_3letter, {options: {fields: ['a'], sort: 'a', direction: 'asc'}});
-trial('1 field search (limit 100)', searches_mixed, {options: {fields: ['a'], sort: 'a', direction: 'asc', limit: 100}});
+trial('1 field search', searches_mixed, {options: {fields: ['a'], sort: [{field: 'a'}], direction: 'asc'}});
+trial('1 field search (1 letter)', searches_1letter, {options: {fields: ['a'], sort: [{field: 'a'}], direction: 'asc'}});
+trial('1 field search (2 letter)', searches_2letter, {options: {fields: ['a'], sort: [{field: 'a'}], direction: 'asc'}});
+trial('1 field search (3 letter)', searches_3letter, {options: {fields: ['a'], sort: [{field: 'a'}], direction: 'asc'}});
+trial('1 field search (limit 100)', searches_mixed, {options: {fields: ['a'], sort: [{field: 'a'}], direction: 'asc', limit: 100}});
 
 console.log('');
-trial('2 field search', searches_mixed, {options: {fields: ['a','b'], sort: 'a', direction: 'asc'}});
-trial('2 field search (1 letter)', searches_1letter, {options: {fields: ['a','b'], sort: 'a', direction: 'asc'}});
-trial('2 field search (2 letter)', searches_2letter, {options: {fields: ['a','b'], sort: 'a', direction: 'asc'}});
-trial('2 field search (3 letter)', searches_3letter, {options: {fields: ['a','b'], sort: 'a', direction: 'asc'}});
-trial('2 field search (limit 100)', searches_mixed, {options: {fields: ['a','b'], sort: 'a', direction: 'asc', limit: 100}});
+trial('2 field search', searches_mixed, {options: {fields: ['a','b'], sort: [{field: 'a'}], direction: 'asc'}});
+trial('2 field search (1 letter)', searches_1letter, {options: {fields: ['a','b'], sort: [{field: 'a'}], direction: 'asc'}});
+trial('2 field search (2 letter)', searches_2letter, {options: {fields: ['a','b'], sort: [{field: 'a'}], direction: 'asc'}});
+trial('2 field search (3 letter)', searches_3letter, {options: {fields: ['a','b'], sort: [{field: 'a'}], direction: 'asc'}});
+trial('2 field search (limit 100)', searches_mixed, {options: {fields: ['a','b'], sort: [{field: 'a'}], direction: 'asc', limit: 100}});
 
 console.log('');
-trial('3 field search', searches_mixed, {options: {fields: ['a','b','c'], sort: 'a', direction: 'asc'}});
-trial('3 field search (1 letter)', searches_1letter, {options: {fields: ['a','b','c'], sort: 'a', direction: 'asc'}});
-trial('3 field search (2 letter)', searches_2letter, {options: {fields: ['a','b','c'], sort: 'a', direction: 'asc'}});
-trial('3 field search (3 letter)', searches_3letter, {options: {fields: ['a','b','c'], sort: 'a', direction: 'asc'}});
-trial('3 field search (limit 100)', searches_mixed, {options: {fields: ['a','b','c'], sort: 'a', direction: 'asc', limit: 100}});
+trial('3 field search', searches_mixed, {options: {fields: ['a','b','c'], sort: [{field: 'a'}], direction: 'asc'}});
+trial('3 field search (1 letter)', searches_1letter, {options: {fields: ['a','b','c'], sort: [{field: 'a'}], direction: 'asc'}});
+trial('3 field search (2 letter)', searches_2letter, {options: {fields: ['a','b','c'], sort: [{field: 'a'}], direction: 'asc'}});
+trial('3 field search (3 letter)', searches_3letter, {options: {fields: ['a','b','c'], sort: [{field: 'a'}], direction: 'asc'}});
+trial('3 field search (limit 100)', searches_mixed, {options: {fields: ['a','b','c'], sort: [{field: 'a'}], direction: 'asc', limit: 100}});
 
 console.log('');
-trial('4 field search', searches_mixed, {options: {fields: ['a','b','c','d'], sort: 'a', direction: 'asc'}});
-trial('4 field search (limit 100)', searches_mixed, {options: {fields: ['a','b','c','d'], sort: 'a', direction: 'asc', limit: 100}});
-trial('4 field search (1 letter)', searches_1letter, {options: {fields: ['a','b','c','d'], sort: 'a', direction: 'asc'}});
-trial('4 field search (2 letter)', searches_2letter, {options: {fields: ['a','b','c','d'], sort: 'a', direction: 'asc'}});
-trial('4 field search (3 letter)', searches_3letter, {options: {fields: ['a','b','c','d'], sort: 'a', direction: 'asc'}});
+trial('4 field search', searches_mixed, {options: {fields: ['a','b','c','d'], sort: [{field: 'a'}], direction: 'asc'}});
+trial('4 field search (limit 100)', searches_mixed, {options: {fields: ['a','b','c','d'], sort: [{field: 'a'}], direction: 'asc', limit: 100}});
+trial('4 field search (1 letter)', searches_1letter, {options: {fields: ['a','b','c','d'], sort: [{field: 'a'}], direction: 'asc'}});
+trial('4 field search (2 letter)', searches_2letter, {options: {fields: ['a','b','c','d'], sort: [{field: 'a'}], direction: 'asc'}});
+trial('4 field search (3 letter)', searches_3letter, {options: {fields: ['a','b','c','d'], sort: [{field: 'a'}], direction: 'asc'}});
 
 console.log('');
-trial('5 field search', searches_mixed, {options: {fields: ['a','b','c','d','e'], sort: 'a', direction: 'asc'}});
-trial('5 field search (1 letter)', searches_1letter, {options: {fields: ['a','b','c','d','e'], sort: 'a', direction: 'asc'}});
-trial('5 field search (2 letter)', searches_2letter, {options: {fields: ['a','b','c','d','e'], sort: 'a', direction: 'asc'}});
-trial('5 field search (3 letter)', searches_3letter, {options: {fields: ['a','b','c','d','e'], sort: 'a', direction: 'asc'}});
-trial('5 field search (limit 100)', searches_mixed, {options: {fields: ['a','b','c','d','e'], sort: 'a', direction: 'asc', limit: 100}});
+trial('5 field search', searches_mixed, {options: {fields: ['a','b','c','d','e'], sort: [{field: 'a'}], direction: 'asc'}});
+trial('5 field search (1 letter)', searches_1letter, {options: {fields: ['a','b','c','d','e'], sort: [{field: 'a'}], direction: 'asc'}});
+trial('5 field search (2 letter)', searches_2letter, {options: {fields: ['a','b','c','d','e'], sort: [{field: 'a'}], direction: 'asc'}});
+trial('5 field search (3 letter)', searches_3letter, {options: {fields: ['a','b','c','d','e'], sort: [{field: 'a'}], direction: 'asc'}});
+trial('5 field search (limit 100)', searches_mixed, {options: {fields: ['a','b','c','d','e'], sort: [{field: 'a'}], direction: 'asc', limit: 100}});
 
 if (process.argv.indexOf('--no-save') === -1) {
 	fs.writeFileSync(path_report, JSON.stringify(reports_new), 'utf8');

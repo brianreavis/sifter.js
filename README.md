@@ -27,7 +27,7 @@ var sifter = new Sifter([
 
 var result = sifter.search('anna', {
 	fields: ['title', 'location', 'continent'],
-	sort: 'title',
+	sort: [{field: 'title'}],
 	direction: 'desc',
 	limit: 3
 });
@@ -47,7 +47,7 @@ The sorting options are only acknowledged when searching by an empty string. Oth
 {
 	"options": {
 		"fields": ["title", "location", "continent"],
-		"sort": "title",
+		"sort": [{"field": title"}],
 		"direction": "desc",
 		"limit": 3
 	},
@@ -89,13 +89,13 @@ Performs a search for `query` with the provided `options`.
 	</tr>
 	<tr>
 		<td valign="top">"sort"</td>
-		<td valign="top">string</td>
-		<td valign="top">The name of the property to sort by if no query is given.</td>
+		<td valign="top">array</td>
+		<td valign="top">An array fields to sort by. {field: "[name]", direction: "[asc|desc]"}. The order of the array defines the sort precedence.</td>
 	</tr>
 	<tr>
-		<td valign="top">"direction"</td>
-		<td valign="top">string</td>
-		<td valign="top">The order in which to sort results ("asc" or "desc").</td>
+		<td valign="top">"filter"</td>
+		<td valign="top">boolean</td>
+		<td valign="top">If <code>false</code>, items with a score of zero will not be filtered out of the result-set.</td>
 	</tr>
 </table>
 
