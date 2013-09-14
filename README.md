@@ -95,9 +95,14 @@ Performs a search for `query` with the provided `options`.
 		<td valign="top">An array of fields to sort by. Each item should be an object containing at least a "field" property. Optionally, "direction" can be set to "asc" or "desc". The order of the array defines the sort precedence.<br><br>Unless present, a special "$score" property will be automatically added to the beginning of the sort list. This will make results sorted primarily by match quality (descending).</td>
 	</tr>
 	<tr>
+		<td valign="top">"sort_empty"</td>
+		<td valign="top">array</td>
+		<td valign="top">Optional. Defaults to "sort" setting. If provided, these sort settings are used when no query is present.</td>
+	</tr>
+	<tr>
 		<td valign="top">"filter"</td>
 		<td valign="top">boolean</td>
-		<td valign="top">If <code>false</code>, items with a score of zero will not be filtered out of the result-set.</td>
+		<td valign="top">If <code>false</code>, items with a score of zero will <em>not</em> be filtered out of the result-set.</td>
 	</tr>
 </table>
 

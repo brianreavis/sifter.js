@@ -32,7 +32,6 @@ var highlight = function(obj) { return cardinal.highlight(JSON.stringify(obj), {
 var raw, data, result, t_start, t_end;
 var argv = optimist
 	.usage('Usage: $0 --query="search query" --fields=a,b')
-	.demand('query')
 	.default('direction', 'asc')
 	.default('sort', '')
 	.default('query', '')
@@ -103,13 +102,16 @@ var step_parse = function(callback) {
  */
 var step_sift = function(callback) {
 	var sifter = new Sifter(data);
+	var sort = argv.sort && [{
+		field: argv.sort,
+		direction: argv.direction
+	}];
 
 	t_start = microtime.now();
 	result = sifter.search(argv.query, {
-		fields    : argv.fields.split(','),
-		sort      : argv.sort,
-		limit     : argv.limit,
-		direction : argv.direction
+		fields : argv.fields.split(','),
+		limit  : argv.limit,
+		sort   : sort
 	});
 
 	t_end = microtime.now();

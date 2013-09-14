@@ -186,16 +186,19 @@
 
 	/**
 	 * Returns a function that can be used to compare two
-	 * results, for sorting purposes.
+	 * results, for sorting purposes. If no sorting should
+	 * be performed, `null` will be returned.
 	 *
 	 * @param {string|object} search
 	 * @param {object} options
 	 * @return function(a,b)
 	 */
 	Sifter.prototype.getSortFunction = function(search, options) {
-		var i, n, self, field, fields, fields_count, multiplier, multipliers, get_field, implicit_score;
+		var i, n, self, field, fields, fields_count, multiplier, multipliers, get_field, implicit_score, sort;
+
 		self   = this;
 		search = self.prepareSearch(search, options);
+		sort   = (!search.query && options.sort_empty) || options.sort;
 
 		/**
 		 * Fetches the specified sort field value
@@ -211,15 +214,11 @@
 		};
 
 		// parse options
-		if (!options.sort) {
-			fields = [];
-		} else if (!is_array(options.sort)) {
-			fields = [options.sort];
-		} else {
-			fields = [];
-			for (i = 0, n = options.sort.length; i < n; i++) {
-				if (search.query || options.sort[i].field !== '$score') {
-					fields.push(options.sort[i]);
+		fields = [];
+		if (sort) {
+			for (i = 0, n = sort.length; i < n; i++) {
+				if (search.query || sort[i].field !== '$score') {
+					fields.push(sort[i]);
 				}
 			}
 		}
@@ -254,7 +253,7 @@
 		// build function
 		fields_count = fields.length;
 		if (!fields_count) {
-			return function() { return 0; };
+			return null;
 		} else if (fields_count === 1) {
 			field = fields[0].field;
 			multiplier = multipliers[0];
@@ -291,8 +290,19 @@
 	 */
 	Sifter.prototype.prepareSearch = function(query, options) {
 		if (typeof query === 'object') return query;
+
+		options = extend({}, options);
+
+		var option_fields     = options.fields;
+		var option_sort       = options.sort;
+		var option_sort_empty = options.sort_empty;
+
+		if (option_fields && !is_array(option_fields)) options.fields = [option_fields];
+		if (option_sort && !is_array(option_sort)) options.sort = [option_sort];
+		if (option_sort_empty && !is_array(option_sort_empty)) options.sort_empty = [option_sort_empty];
+
 		return {
-			options : extend({}, options),
+			options : options,
 			query   : String(query || '').toLowerCase(),
 			tokens  : this.tokenize(query),
 			total   : 0,
@@ -309,6 +319,7 @@
 	 *   - sort {string}
 	 *   - direction {string}
 	 *   - score {function}
+	 *   - filter {bool}
 	 *   - limit {integer}
 	 *
 	 * Returns an object containing:
@@ -325,19 +336,20 @@
 	 */
 	Sifter.prototype.search = function(query, options) {
 		var self = this, value, score, search, calculateScore;
+		var fn_sort;
+		var fn_score;
 
 		search  = this.prepareSearch(query, options);
 		options = search.options;
 		query   = search.query;
 
 		// generate result scoring function
-		if (!is_array(options.fields)) options.fields = [options.fields];
-		calculateScore = options.score || self.getScoreFunction(search);
+		fn_score = options.score || self.getScoreFunction(search);
 
 		// perform search and sort
 		if (query.length) {
 			self.iterator(self.items, function(item, id) {
-				score = calculateScore(item);
+				score = fn_score(item);
 				if (options.filter === false || score > 0) {
 					search.items.push({'score': score, 'id': id});
 				}
@@ -347,7 +359,9 @@
 				search.items.push({'score': 1, 'id': id});
 			});
 		}
-		search.items.sort(self.getSortFunction(search, options));
+
+		fn_sort = self.getSortFunction(search, options);
+		if (fn_sort) search.items.sort(fn_sort);
 
 		// apply limits
 		search.total = search.items.length;

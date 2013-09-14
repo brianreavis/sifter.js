@@ -96,11 +96,16 @@ describe('Sifter', function() {
 
 	describe('#prepareSeach()', function() {
 
-		it('should return original object if passed an object', function() {
+		it('should normalize options', function() {
 			var sifter = new Sifter([{field: 'a'}, {}]);
-			var search_a = {};
-			var search_b = sifter.prepareSearch(search_a);
-			assert.deepEqual(search_a, search_b);
+			var search = sifter.prepareSearch('a', {
+				fields: {field: 'a'},
+				sort: {field: 'a'},
+				sort_empty: {field: 'a'},
+			});
+			assert.equal(Array.isArray(search.options.fields), true);
+			assert.equal(Array.isArray(search.options.sort), true);
+			assert.equal(Array.isArray(search.options.sort_empty), true);
 		});
 
 		describe('returned object', function() {
@@ -243,19 +248,17 @@ describe('Sifter', function() {
 			it('should not add implicit "$score" field if explicitly given', function() {
 				var sifter = new Sifter([
 					{field: 'boooo'},
-					{field: 'boo'},
+					{field: 'yoo'},
 					{field: 'aaa'},
 				]);
-				console.log('!!!!');
 				var result = sifter.search('oo', {
 					filter: false,
 					fields: 'field',
 					sort: [{field: 'field'}, {field: '$score'}]
 				});
-				console.dir(result.items);
 				assert.equal(result.items[0].id, 2);
-				assert.equal(result.items[1].id, 1);
-				assert.equal(result.items[2].id, 0);
+				assert.equal(result.items[1].id, 0);
+				assert.equal(result.items[2].id, 1);
 			});
 		});
 
