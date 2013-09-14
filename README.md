@@ -28,7 +28,6 @@ var sifter = new Sifter([
 var result = sifter.search('anna', {
 	fields: ['title', 'location', 'continent'],
 	sort: [{field: 'title', direction: 'asc'}],
-	direction: 'desc',
 	limit: 3
 });
 ```

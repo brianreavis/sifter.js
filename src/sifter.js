@@ -316,8 +316,7 @@
 	 * The `options` parameter can contain:
 	 *
 	 *   - fields {string|array}
-	 *   - sort {string}
-	 *   - direction {string}
+	 *   - sort {array}
 	 *   - score {function}
 	 *   - filter {bool}
 	 *   - limit {integer}

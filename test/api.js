@@ -156,8 +156,7 @@ describe('Sifter', function() {
 				]);
 				var result = sifter.search('', {
 					fields: 'field',
-					sort: {field: 'field'},
-					direction: 'asc'
+					sort: {field: 'field'}
 				});
 				assert.equal(result.items[0].id, 0);
 				assert.equal(result.items[1].id, 2);
@@ -171,8 +170,7 @@ describe('Sifter', function() {
 				]);
 				var result = sifter.search('', {
 					fields: 'field',
-					sort: [{field: 'field'}],
-					direction: 'asc'
+					sort: [{field: 'field'}]
 				});
 				assert.equal(result.items[0].id, 0);
 				assert.equal(result.items[1].id, 2);
@@ -190,8 +188,7 @@ describe('Sifter', function() {
 					sort: [
 						{field: 'a'},
 						{field: 'b'}
-					],
-					direction: 'asc'
+					]
 				});
 				assert.equal(result.items[0].id, 3);
 				assert.equal(result.items[1].id, 2);
@@ -279,8 +276,7 @@ describe('Sifter', function() {
 				result_empty = sifter.search('awawfawfawf', options);
 				result_all   = sifter.search('', {
 					fields: ['title', 'location', 'continent'],
-					sort: [{field: 'title'}],
-					direction: 'asc'
+					sort: [{field: 'title'}]
 				});
 			});
 
