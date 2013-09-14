@@ -148,6 +148,21 @@ describe('Sifter', function() {
 		});
 
 		describe('sorting', function() {
+			it('should respect "sort_empty" option when query absent', function() {
+				var sifter = new Sifter([
+					{field: 'aaa'},
+					{field: 'add'},
+					{field: 'abb'},
+				]);
+				var result = sifter.search('', {
+					fields: 'field',
+					sort: {field: 'field', direction: 'asc'},
+					sort_empty: {field: 'field', direction: 'desc'},
+				});
+				assert.equal(result.items[0].id, 1);
+				assert.equal(result.items[1].id, 2);
+				assert.equal(result.items[2].id, 0);
+			});
 			it('should work with one field (as object)', function() {
 				var sifter = new Sifter([
 					{field: 'aaa'},
