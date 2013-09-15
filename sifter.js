@@ -258,11 +258,7 @@
 					var field = options.sort;
 					var multiplier = options.direction === 'desc' ? -1 : 1;
 					return function(a, b) {
-						a = a && String(self.items[a.id][field] || '').toLowerCase();
-						b = b && String(self.items[b.id][field] || '').toLowerCase();
-						if (a > b) return 1 * multiplier;
-						if (b > a) return -1 * multiplier;
-						return 0;
+						return cmp(self.items[a.id][field], self.items[b.id][field]) * multiplier;
 					};
 				})());
 			}
@@ -279,6 +275,17 @@
 
 	// utilities
 	// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
+	var cmp = function(a, b) {
+		if (typeof a === 'number' && typeof b === 'number') {
+			return a > b ? 1 : (a < b ? -1 : 0);
+		}
+		a = String(a || '').toLowerCase();
+		b = String(b || '').toLowerCase();
+		if (a > b) return 1;
+		if (b > a) return -1;
+		return 0;
+	};
 
 	var extend = function(a, b) {
 		var i, n, k, object;

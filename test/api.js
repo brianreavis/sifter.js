@@ -142,6 +142,23 @@ describe('Sifter', function() {
 			assert.equal(result.items[0].id, 0);
 		});
 
+		it('should respect numeric fields when sorting', function() {
+			var sifter = new Sifter([
+				{field: 1.0},
+				{field: 12.9},
+				{field: 9.1},
+				{field: -9.0},
+			]);
+			var result = sifter.search('', {
+				fields: 'field',
+				sort: 'field'
+			});
+			assert.equal(result.items[0].id, 3);
+			assert.equal(result.items[1].id, 0);
+			assert.equal(result.items[2].id, 2);
+			assert.equal(result.items[3].id, 1);
+		});
+
 		describe('returned results', function() {
 			var sifter, options, result, result_empty, result_all;
 
