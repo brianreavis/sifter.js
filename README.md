@@ -1,6 +1,7 @@
 # sifter.js
 [![NPM version](https://badge.fury.io/js/sifter.png)](http://badge.fury.io/js/sifter)
 [![Build Status](https://travis-ci.org/brianreavis/sifter.js.png?branch=master)](https://travis-ci.org/brianreavis/sifter.js)
+[![Coverage Status](https://coveralls.io/repos/brianreavis/sifter.js/badge.png)](https://coveralls.io/r/brianreavis/sifter.js)
 
 Sifter is a client and server-side library (via [UMD](https://github.com/umdjs/umd)) for textually searching arrays and hashes of objects by property – or multiple properties. It's designed specifically for autocomplete. The process is three-step: *score*, *filter*, *sort*.
 
@@ -121,11 +122,10 @@ $ sifter --query="ant" --fields=title --file=file.csv
 
 ## Contributing
 
-The following dependencies are required to build and test:
+Install the dependencies that are required to build and test:
 
 ```sh
-$ npm install -g mocha
-$ npm install -g uglify-js
+$ npm install
 ```
 
 First build a copy with `make` then run the test suite with `make test`.

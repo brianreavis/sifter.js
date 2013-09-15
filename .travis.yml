@@ -2,8 +2,7 @@ language: node_js
 node_js:
   - "0.10"
 before_script:
-  - npm install -g mocha
-  - npm install -g uglify-js
   - make
 script:
-  - mocha --reporter tap
+  - make test-ci
+  - make test-ci-coverage

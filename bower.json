@@ -13,11 +13,10 @@
 	"ignore": [
 		"Makefile",
 		"test",
-		"src",
+		"lib",
 		"bin",
 		"benchmark",
 		"node_modules",
-		"*.sh",
 		".travis.yml"
 	],
 	"dependencies": {}

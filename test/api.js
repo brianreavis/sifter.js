@@ -1,5 +1,5 @@
 var assert = require('assert');
-var Sifter = require('../sifter.js');
+var Sifter = require('../lib/sifter.js');
 
 describe('Sifter', function() {
 
