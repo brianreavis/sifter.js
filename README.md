@@ -7,6 +7,7 @@ Sifter is a client and server-side library (via [UMD](https://github.com/umdjs/u
 
 * **Supports díåcritîçs.**<br>For example, if searching for "montana" and an item in the set has a value of "montaña", it will still be matched.
 * **Smart sorting.**<br>Items are scored intelligently depending on where a match is found in the string (how close to the beginning) and what percentage of the string matches.
+* **Multi-field sorting**<br>When scores aren't enough to go by (like when getting results for an empty query), Sifter is able to sort by multiple field. Sort by a person's first name and last name without problem.
 
 ```sh
 $ npm install sifter # node.js
@@ -41,7 +42,9 @@ Seaching will provide back meta information and an "items" array that contains o
 {"score": 0.2692307692307692, "id": 2}
 ```
 
-The sorting options are only acknowledged when searching by an empty string. Otherwise, sorting will always be by best-match. The full result comes back in the format of:
+Items are sorted by best-match, primarily. If two or more items have the same score (which will be the case when searching with an empty string), it will resort to the fields listed in the "sort" option.
+
+The full result comes back in the format of:
 
 ```js
 {
@@ -50,7 +53,6 @@ The sorting options are only acknowledged when searching by an empty string. Oth
 		"sort": [
 			{"field": "title", "direction": "asc"}
 		],
-		"direction": "desc",
 		"limit": 3
 	},
 	"query": "anna",
