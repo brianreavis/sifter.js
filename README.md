@@ -106,6 +106,11 @@ Performs a search for `query` with the provided `options`.
 		<td valign="top">boolean</td>
 		<td valign="top">If <code>false</code>, items with a score of zero will <em>not</em> be filtered out of the result-set.</td>
 	</tr>
+	<tr>
+		<td valign="top">"conjunction"</td>
+		<td valign="top">string</td>
+		<td valign="top">Determines how multiple search terms are joined ("and" or "or").</td>
+	</tr>
 </table>
 
 ## CLI
