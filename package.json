@@ -26,7 +26,7 @@
     "cardinal": "0.4.x",
     "async": "0.2.x",
     "humanize": "0.0.x",
-    "microtime": "0.4.x",
+    "microtime": "0.5.x",
     "node-csv": "https://github.com/voodootikigod/node-csv/tarball/master"
   },
   "devDependencies": {
