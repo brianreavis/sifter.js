@@ -56,7 +56,7 @@ describe('Sifter', function() {
 					assert.equal(tokens[0].regex.test('afawfaf'), false);
 				});
 				it('should match international characters', function() {
-					assert.equal(tokens[0].regex.test('hellö'), true);
+					assert.equal(tokens[0].regex.test('hęłlö'), true);
 					assert.equal(tokens[1].regex.test('wÕrld'), true);
 				});
 			});
@@ -124,7 +124,7 @@ describe('Sifter', function() {
 			var search = sifter.prepareSearch('a', {
 				fields: {field: 'a'},
 				sort: {field: 'a'},
-				sort_empty: {field: 'a'},
+				sort_empty: {field: 'a'}
 			});
 			assert.equal(Array.isArray(search.options.fields), true);
 			assert.equal(Array.isArray(search.options.sort), true);
@@ -175,12 +175,12 @@ describe('Sifter', function() {
 				var sifter = new Sifter([
 					{field: 'aaa'},
 					{field: 'add'},
-					{field: 'abb'},
+					{field: 'abb'}
 				]);
 				var result = sifter.search('', {
 					fields: 'field',
 					sort: {field: 'field', direction: 'asc'},
-					sort_empty: {field: 'field', direction: 'desc'},
+					sort_empty: {field: 'field', direction: 'desc'}
 				});
 				assert.equal(result.items[0].id, 1);
 				assert.equal(result.items[1].id, 2);
@@ -190,7 +190,7 @@ describe('Sifter', function() {
 				var sifter = new Sifter([
 					{field: 'aaa'},
 					{field: 'add'},
-					{field: 'abb'},
+					{field: 'abb'}
 				]);
 				var result = sifter.search('', {
 					fields: 'field',
@@ -204,7 +204,7 @@ describe('Sifter', function() {
 				var sifter = new Sifter([
 					{field: 'aaa'},
 					{field: 'add'},
-					{field: 'abb'},
+					{field: 'abb'}
 				]);
 				var result = sifter.search('', {
 					fields: 'field',
@@ -219,7 +219,7 @@ describe('Sifter', function() {
 					{a: 'bbb', b: 'bbb'},
 					{a: 'bbb', b: 'ccc'},
 					{a: 'bbb', b: 'aaa'},
-					{a: 'aaa'},
+					{a: 'aaa'}
 				]);
 				var result = sifter.search('', {
 					fields: 'field',
@@ -238,7 +238,7 @@ describe('Sifter', function() {
 					{field: 1.0},
 					{field: 12.9},
 					{field: 9.1},
-					{field: -9.0},
+					{field: -9.0}
 				]);
 				var result = sifter.search('', {
 					fields: 'field',
@@ -260,7 +260,7 @@ describe('Sifter', function() {
 					fields: 'field',
 					sort: [
 						{field: 'b', direction: 'desc'},
-						{field: 'a', direction: 'asc'},
+						{field: 'a', direction: 'asc'}
 					]
 				});
 				assert.equal(result.items[0].id, 2);
@@ -271,7 +271,7 @@ describe('Sifter', function() {
 			it('should add implicit "$score" field when query present', function() {
 				var sifter = new Sifter([
 					{field: 'yoo'},
-					{field: 'book'},
+					{field: 'book'}
 				]);
 				var result = sifter.search('oo', {
 					fields: 'field',
@@ -284,7 +284,7 @@ describe('Sifter', function() {
 				var sifter = new Sifter([
 					{field: 'boooo'},
 					{field: 'yoo'},
-					{field: 'aaa'},
+					{field: 'aaa'}
 				]);
 				var result = sifter.search('oo', {
 					filter: false,
