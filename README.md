@@ -1,6 +1,6 @@
 # sifter.js
 [![NPM version](http://img.shields.io/npm/v/sifter.svg?style=flat)](https://www.npmjs.org/package/sifter)
-[![Installs](http://img.shields.io/npm/dm/sifter.svg?style=flat)](https://www.npmjs.org/package/gdal)
+[![Installs](http://img.shields.io/npm/dm/sifter.svg?style=flat)](https://www.npmjs.org/package/sifter)
 [![Build Status](http://img.shields.io/travis/brianreavis/sifter.js/master.svg?style=flat)](https://travis-ci.org/brianreavis/sifter.js)
 [![Coverage Status](http://img.shields.io/coveralls/brianreavis/sifter.js/master.svg?style=flat)](https://coveralls.io/r/brianreavis/sifter.js)
 
