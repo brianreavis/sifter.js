@@ -295,6 +295,18 @@ describe('Sifter', function() {
 				assert.equal(result.items[1].id, 0);
 				assert.equal(result.items[2].id, 1);
 			});
+			it('should be locale-aware', function() {
+				var sifter = new Sifter([
+					{field: 'Zoom Test'},
+					{field: 'Água Test'}
+				]);
+				var result = sifter.search('', {
+					fields: 'field',
+					sort: [{field: 'field', direction: 'asc'}]
+				});
+				assert.equal(result.items[0].id, 1);
+				assert.equal(result.items[1].id, 0);
+			});
 		});
 
 		describe('returned results', function() {

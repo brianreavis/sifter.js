@@ -18,6 +18,9 @@
     "type": "git",
     "url": "git://github.com/brianreavis/sifter.js.git"
   },
+  "scripts": {
+  	"test": "mocha -R list"
+  },
   "bin": {
     "sifter": "./bin/sifter.js"
   },
