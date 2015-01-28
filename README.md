@@ -1,13 +1,14 @@
 # sifter.js
-[![NPM version](https://badge.fury.io/js/sifter.png)](http://badge.fury.io/js/sifter)
-[![Build Status](https://travis-ci.org/brianreavis/sifter.js.png?branch=master)](https://travis-ci.org/brianreavis/sifter.js)
-[![Coverage Status](https://coveralls.io/repos/brianreavis/sifter.js/badge.png)](https://coveralls.io/r/brianreavis/sifter.js)
+[![NPM version](http://img.shields.io/npm/v/sifter.svg?style=flat)](https://www.npmjs.org/package/sifter)
+[![Installs](http://img.shields.io/npm/dm/sifter.svg?style=flat)](https://www.npmjs.org/package/gdal)
+[![Build Status](http://img.shields.io/travis/brianreavis/sifter.js/master.svg?style=flat)](https://travis-ci.org/brianreavis/sifter.js)
+[![Coverage Status](http://img.shields.io/coveralls/brianreavis/sifter.js/master.svg?style=flat)](https://coveralls.io/r/brianreavis/sifter.js)
 
 Sifter is a client and server-side library (via [UMD](https://github.com/umdjs/umd)) for textually searching arrays and hashes of objects by property – or multiple properties. It's designed specifically for autocomplete. The process is three-step: *score*, *filter*, *sort*.
 
-* **Supports díåcritîçs.**<br>For example, if searching for "montana" and an item in the set has a value of "montaña", it will still be matched.
-* **Smart sorting.**<br>Items are scored intelligently depending on where a match is found in the string (how close to the beginning) and what percentage of the string matches.
-* **Multi-field sorting.**<br>When scores aren't enough to go by – like when getting results for an empty query – it can sort by one or more fields. For example, sort by a person's first name and last name without actually merging the properties to a single string.
+* **Supports díåcritîçs.**<br>For example, if searching for "montana" and an item in the set has a value of "montaña", it will still be matched. Sorting will also play nicely with diacritics.
+* **Smart scoring.**<br>Items are scored / sorted intelligently depending on where a match is found in the string (how close to the beginning) and what percentage of the string matches.
+* **Multi-field sorting.**<br>When scores aren't enough to go by – like when getting results for an empty query – it can sort by one or more fields. For example, sort by a person's first name and last name without actually merging the properties to a single string.
 
 ```sh
 $ npm install sifter # node.js
@@ -141,7 +142,7 @@ When issuing a pull request, please exclude "sifter.js" and "sifter.min.js" in t
 
 ## License
 
-Copyright &copy; 2013 [Brian Reavis](http://twitter.com/brianreavis) & [Contributors](https://github.com/brianreavis/sifter.js/graphs/contributors)
+Copyright &copy; 2013–2015 [Brian Reavis](http://twitter.com/brianreavis) & [Contributors](https://github.com/brianreavis/sifter.js/graphs/contributors)
 
 Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with the License. You may obtain a copy of the License at: http://www.apache.org/licenses/LICENSE-2.0
 
