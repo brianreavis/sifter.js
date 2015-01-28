@@ -221,7 +221,7 @@
 		 * @param  {object} result
 		 * @return {mixed}
 		 */
-		get_field  = function(name, result) {
+		get_field = function(name, result) {
 			if (name === '$score') return result.score;
 			return self.items[result.id][name];
 		};
@@ -391,8 +391,8 @@
 		if (typeof a === 'number' && typeof b === 'number') {
 			return a > b ? 1 : (a < b ? -1 : 0);
 		}
-		a = String(a || '').toLowerCase();
-		b = String(b || '').toLowerCase();
+		a = asciifold(String(a || ''));
+		b = asciifold(String(b || ''));
 		if (a > b) return 1;
 		if (b > a) return -1;
 		return 0;
@@ -425,20 +425,43 @@
 	};
 
 	var DIACRITICS = {
-		'a': '[aÀÁÂÃÄÅàáâãäåĀā]',
+		'a': '[aÀÁÂÃÄÅàáâãäåĀāąĄ]',
 		'c': '[cÇçćĆčČ]',
 		'd': '[dđĐďĎ]',
-		'e': '[eÈÉÊËèéêëěĚĒē]',
+		'e': '[eÈÉÊËèéêëěĚĒēęĘ]',
 		'i': '[iÌÍÎÏìíîïĪī]',
-		'n': '[nÑñňŇ]',
+		'l': '[lłŁ]',
+		'n': '[nÑñňŇńŃ]',
 		'o': '[oÒÓÔÕÕÖØòóôõöøŌō]',
 		'r': '[rřŘ]',
-		's': '[sŠš]',
+		's': '[sŠšśŚ]',
 		't': '[tťŤ]',
 		'u': '[uÙÚÛÜùúûüůŮŪū]',
 		'y': '[yŸÿýÝ]',
-		'z': '[zŽž]'
+		'z': '[zŽžżŻźŹ]'
 	};
+
+	var asciifold = (function() {
+		var i, n, k, chunk;
+		var foreignletters = '';
+		var lookup = {};
+		for (k in DIACRITICS) {
+			if (DIACRITICS.hasOwnProperty(k)) {
+				chunk = DIACRITICS[k].substring(2, DIACRITICS[k].length - 1);
+				foreignletters += chunk;
+				for (i = 0, n = chunk.length; i < n; i++) {
+					lookup[chunk.charAt(i)] = k;
+				}
+			}
+		}
+		var regexp = new RegExp('[' +  foreignletters + ']', 'g');
+		return function(str) {
+			return str.replace(regexp, function(foreignletter) {
+				return lookup[foreignletter];
+			}).toLowerCase();
+		};
+	})();
+
 
 	// export
 	// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
