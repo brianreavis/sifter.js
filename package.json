@@ -30,7 +30,7 @@
     "cardinal": "0.4.x",
     "async": "0.2.x",
     "humanize": "0.0.x",
-    "node-csv": "https://github.com/voodootikigod/node-csv/tarball/master"
+    "node-csv": "git://github.com/voodootikigod/node-csv"
   },
   "devDependencies": {
     "mocha": "1.12.x",
