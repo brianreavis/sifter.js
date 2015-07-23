@@ -170,6 +170,20 @@ describe('Sifter', function() {
 			assert.equal(result.items[0].id, 0);
 		});
 
+		it('should allow to search nested fields', function() {
+			var sifter = new Sifter([
+				{fields: {nested: 'aaa'}},
+				{fields: {nested: 'add'}},
+				{fields: {nested: 'abb'}}
+			]);
+			var result = sifter.search('aaa', {
+				fields: 'fields.nested',
+			});
+
+			assert.equal(result.items.length, 1);
+			assert.equal(result.items[0].id, 0);
+		});
+
 		describe('sorting', function() {
 			it('should respect "sort_empty" option when query absent', function() {
 				var sifter = new Sifter([
