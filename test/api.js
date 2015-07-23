@@ -117,7 +117,7 @@ describe('Sifter', function() {
 
 	});
 
-	describe('#prepareSeach()', function() {
+	describe('#prepareSearch()', function() {
 
 		it('should normalize options', function() {
 			var sifter = new Sifter([{field: 'a'}, {}]);
@@ -306,6 +306,20 @@ describe('Sifter', function() {
 				});
 				assert.equal(result.items[0].id, 1);
 				assert.equal(result.items[1].id, 0);
+			});
+			it('should work with nested fields', function() {
+				var sifter = new Sifter([
+					{fields: {nested: 'aaa'}},
+					{fields: {nested: 'add'}},
+					{fields: {nested: 'abb'}}
+				]);
+				var result = sifter.search('', {
+					fields: [],
+					sort: {field: 'fields.nested'}
+				});
+				assert.equal(result.items[0].id, 0);
+				assert.equal(result.items[1].id, 2);
+				assert.equal(result.items[2].id, 1);
 			});
 		});
 
