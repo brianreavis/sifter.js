@@ -29,7 +29,6 @@
     "cardinal": "0.4.x",
     "async": "0.2.x",
     "humanize": "0.0.x",
-    "microtime": "~1.4.2",
     "node-csv": "https://github.com/voodootikigod/node-csv/tarball/master"
   },
   "devDependencies": {
@@ -39,6 +38,9 @@
     "coveralls": "2.3.x",
     "uglify-js": "2.4.x",
     "istanbul": "0.1.x"
+  },
+  "optionalDependencies": {
+    "microtime": "~1.4.2"
   },
   "engines": {
     "node": "*"

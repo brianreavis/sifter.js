@@ -18,8 +18,18 @@ process.chdir(__dirname);
 
 var fs        = require('fs');
 var humanize  = require('humanize');
-var microtime = require('microtime');
 var Sifter    = require('../lib/sifter');
+var microtime;
+
+try {
+	microtime = require('microtime');
+} catch(error) {
+	microtime = {
+		now: function now() {
+			return +new Date();
+		}
+	};
+}
 
 var measure_time = function(fn) {
 	var start, end;
