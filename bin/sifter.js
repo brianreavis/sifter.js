@@ -25,9 +25,19 @@ var async     = require('async');
 var csv       = require('node-csv');
 var Stream    = require('stream');
 var humanize  = require('humanize');
-var microtime = require('microtime');
 var Sifter    = require('../lib/sifter');
 var highlight = function(obj) { return cardinal.highlight(JSON.stringify(obj), {json: true}); };
+var microtime;
+
+try {
+	microtime = require('microtime');
+} catch(error) {
+	microtime = {
+		now: function now() {
+			return +new Date();
+		}
+	};
+}
 
 var raw, data, result, t_start, t_end;
 var argv = optimist
