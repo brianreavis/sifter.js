@@ -425,20 +425,20 @@
 	};
 
 	var DIACRITICS = {
-		'a': '[aÀÁÂÃÄÅàáâãäåĀāąĄ]',
-		'c': '[cÇçćĆčČ]',
-		'd': '[dđĐďĎ]',
-		'e': '[eÈÉÊËèéêëěĚĒēęĘ]',
+		'a': '[aàáâãäåāą]',
+		'c': '[cçćč]',
+		'd': '[dđď]',
+		'e': '[eèéêëěēę]',
 		'i': '[iÌÍÎÏìíîïĪī]',
-		'l': '[lłŁ]',
-		'n': '[nÑñňŇńŃ]',
-		'o': '[oÒÓÔÕÕÖØòóôõöøŌō]',
-		'r': '[rřŘ]',
-		's': '[sŠšśŚ]',
-		't': '[tťŤ]',
-		'u': '[uÙÚÛÜùúûüůŮŪū]',
-		'y': '[yŸÿýÝ]',
-		'z': '[zŽžżŻźŹ]'
+		'l': '[lłľ]',
+		'n': '[nñňń]',
+		'o': '[oòóôõöøō]',
+		'r': '[rř]',
+		's': '[sšś]',
+		't': '[tť]',
+		'u': '[uùúûüůū]',
+		'y': '[yÿý]',
+		'z': '[zžżź]'
 	};
 
 	var asciifold = (function() {
@@ -456,9 +456,9 @@
 		}
 		var regexp = new RegExp('[' +  foreignletters + ']', 'g');
 		return function(str) {
-			return str.replace(regexp, function(foreignletter) {
+			return str.toLowerCase().replace(regexp, function(foreignletter) {
 				return lookup[foreignletter];
-			}).toLowerCase();
+			});
 		};
 	})();
 
