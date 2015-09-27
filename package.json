@@ -41,7 +41,7 @@
     "istanbul": "0.1.x"
   },
   "optionalDependencies": {
-    "microtime": "~1.4.2"
+    "microtime": "2.0.x"
   },
   "engines": {
     "node": "*"
