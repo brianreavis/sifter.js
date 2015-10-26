@@ -113,6 +113,11 @@ Performs a search for `query` with the provided `options`.
 		<td valign="top">string</td>
 		<td valign="top">Determines how multiple search terms are joined ("and" or "or").</td>
 	</tr>
+	<tr>
+		<td valign="top">"nesting"</td>
+		<td valign="top">boolean</td>
+		<td valign="top">If <code>true</code>, nested fields will be available for search and sort using dot-notation to reference them.<br>ex:<code>nested.property</code><br><em>Warning: can reduce performances</em></td>
+	</tr>
 </table>
 
 ## CLI

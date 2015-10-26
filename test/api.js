@@ -178,6 +178,7 @@ describe('Sifter', function() {
 			]);
 			var result = sifter.search('aaa', {
 				fields: 'fields.nested',
+				nesting: true
 			});
 
 			assert.equal(result.items.length, 1);
@@ -329,7 +330,8 @@ describe('Sifter', function() {
 				]);
 				var result = sifter.search('', {
 					fields: [],
-					sort: {field: 'fields.nested'}
+					sort: {field: 'fields.nested'},
+					nesting: true
 				});
 				assert.equal(result.items[0].id, 0);
 				assert.equal(result.items[1].id, 2);
