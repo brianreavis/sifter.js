@@ -45,7 +45,7 @@
 	 * @param {string} query
 	 * @returns {array}
 	 */
-	Sifter.prototype.tokenize = function(query) {
+	Sifter.prototype.tokenize = function(query, firsts) {
 		query = trim(String(query || '').toLowerCase());
 		if (!query || !query.length) return [];
 
@@ -64,7 +64,7 @@
 			}
 			tokens.push({
 				string : words[i],
-				regex  : new RegExp(regex, 'i')
+				regex  : firsts ? new RegExp('^' + regex + '|\\s' + regex, 'i') : new RegExp(regex, 'i')
 			});
 		}
 
@@ -317,7 +317,7 @@
 		return {
 			options : options,
 			query   : String(query || '').toLowerCase(),
-			tokens  : this.tokenize(query),
+			tokens  : this.tokenize(query, options.firsts),
 			total   : 0,
 			items   : []
 		};
