@@ -143,6 +143,23 @@
 		};
 
 		/**
+		 * Evaluates field value
+		 *
+		 * @param {object} data
+		 * @param {string} fieldName
+		 * @return {string}
+		 */
+		var evalField = function (data, fieldName) {
+			var dotIndex = fieldName.indexOf('.');
+			if (dotIndex >= 0) {
+				return evalField(data[fieldName.substr(0, dotIndex)], fieldName.substr(dotIndex + 1));
+			}
+			else {
+				return data[fieldName];
+			}
+		}
+
+		/**
 		 * Calculates the score of an object
 		 * against the search query.
 		 *
@@ -157,12 +174,12 @@
 			}
 			if (field_count === 1) {
 				return function(token, data) {
-					return scoreValue(data[fields[0]], token);
+					return scoreValue(evalField(data, fields[0]), token);
 				};
 			}
 			return function(token, data) {
 				for (var i = 0, sum = 0; i < field_count; i++) {
-					sum += scoreValue(data[fields[i]], token);
+					sum += scoreValue(evalField(data, fields[i]), token);
 				}
 				return sum / field_count;
 			};
