@@ -96,7 +96,7 @@ Performs a search for `query` with the provided `options`.
 	<tr>
 		<td valign="top"><code>sort</code></td>
 		<td valign="top">array</td>
-		<td valign="top">An array of fields to sort by. Each item should be an object containing at least a "field" property. Optionally, "direction" can be set to "asc" or "desc". The order of the array defines the sort precedence.<br><br>Unless present, a special "$score" property will be automatically added to the beginning of the sort list. This will make results sorted primarily by match quality (descending).</td>
+		<td valign="top">An array of fields to sort by. Each item should be an object containing at least a <code>"field"</code> property. Optionally, <code>direction</code> can be set to <code>"asc"</code> or <code>"desc"</code>. The order of the array defines the sort precedence.<br><br>Unless present, a special <code>"$score"</code> property will be automatically added to the beginning of the sort list. This will make results sorted primarily by match quality (descending).</td>
 	</tr>
 	<tr>
 		<td valign="top"><code>sort_empty</code></td>
@@ -111,7 +111,7 @@ Performs a search for `query` with the provided `options`.
 	<tr>
 		<td valign="top"><code>conjunction</code></td>
 		<td valign="top">string</td>
-		<td valign="top">Determines how multiple search terms are joined (`"and"` or `"or"`, defaults to `"or"`).</td>
+		<td valign="top">Determines how multiple search terms are joined (<code>"and"</code> or <code>"or"</code>, defaults to <code>"or"</code>).</td>
 	</tr>
 	<tr>
 		<td valign="top"><code>nesting</code></td>
