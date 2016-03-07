@@ -80,43 +80,43 @@ Performs a search for `query` with the provided `options`.
 <table width="100%">
 	<tr>
 		<th align="left">Option</th>
-		<th>Type</th>
+		<th align="left">Type</th>
 		<th align="left" width="100%">Description</th>
 	</tr>
 	<tr>
-		<td valign="top">"fields"</td>
+		<td valign="top"><code>fields</code></td>
 		<td valign="top">array</td>
 		<td valign="top">An array of property names to be searched.</td>
 	</tr>
 	<tr>
-		<td valign="top">"limit"</td>
+		<td valign="top"><code>limit</code></td>
 		<td valign="top">integer</td>
 		<td valign="top">The maximum number of results to return.</td>
 	</tr>
 	<tr>
-		<td valign="top">"sort"</td>
+		<td valign="top"><code>sort</code></td>
 		<td valign="top">array</td>
 		<td valign="top">An array of fields to sort by. Each item should be an object containing at least a "field" property. Optionally, "direction" can be set to "asc" or "desc". The order of the array defines the sort precedence.<br><br>Unless present, a special "$score" property will be automatically added to the beginning of the sort list. This will make results sorted primarily by match quality (descending).</td>
 	</tr>
 	<tr>
-		<td valign="top">"sort_empty"</td>
+		<td valign="top"><code>sort_empty</code></td>
 		<td valign="top">array</td>
 		<td valign="top">Optional. Defaults to "sort" setting. If provided, these sort settings are used when no query is present.</td>
 	</tr>
 	<tr>
-		<td valign="top">"filter"</td>
+		<td valign="top"><code>filter</code></td>
 		<td valign="top">boolean</td>
 		<td valign="top">If <code>false</code>, items with a score of zero will <em>not</em> be filtered out of the result-set.</td>
 	</tr>
 	<tr>
-		<td valign="top">"conjunction"</td>
+		<td valign="top"><code>conjunction</code></td>
 		<td valign="top">string</td>
-		<td valign="top">Determines how multiple search terms are joined ("and" or "or").</td>
+		<td valign="top">Determines how multiple search terms are joined (`"and"` or `"or"`, defaults to `"or"`).</td>
 	</tr>
 	<tr>
-		<td valign="top">"nesting"</td>
+		<td valign="top"><code>nesting</code></td>
 		<td valign="top">boolean</td>
-		<td valign="top">If <code>true</code>, nested fields will be available for search and sort using dot-notation to reference them.<br>ex:<code>nested.property</code><br><em>Warning: can reduce performances</em></td>
+		<td valign="top">If <code>true</code>, nested fields will be available for search and sort using dot-notation to reference them (e.g. <code>nested.property</code>)<br><em>Warning: can reduce performance</em></td>
 	</tr>
 </table>
 
