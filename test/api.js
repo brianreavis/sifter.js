@@ -117,7 +117,7 @@ describe('Sifter', function() {
 
 	});
 
-	describe('#prepareSeach()', function() {
+	describe('#prepareSearch()', function() {
 
 		it('should normalize options', function() {
 			var sifter = new Sifter([{field: 'a'}, {}]);
@@ -167,6 +167,21 @@ describe('Sifter', function() {
 		it('should allow "fields" option to be a string', function() {
 			var sifter = new Sifter([{field: 'a'}, {}]);
 			var result = sifter.search('a', {fields: 'field'});
+			assert.equal(result.items[0].id, 0);
+		});
+
+		it('should allow to search nested fields', function() {
+			var sifter = new Sifter([
+				{fields: {nested: 'aaa'}},
+				{fields: {nested: 'add'}},
+				{fields: {nested: 'abb'}}
+			]);
+			var result = sifter.search('aaa', {
+				fields: 'fields.nested',
+				nesting: true
+			});
+
+			assert.equal(result.items.length, 1);
 			assert.equal(result.items[0].id, 0);
 		});
 
@@ -306,6 +321,21 @@ describe('Sifter', function() {
 				});
 				assert.equal(result.items[0].id, 1);
 				assert.equal(result.items[1].id, 0);
+			});
+			it('should work with nested fields', function() {
+				var sifter = new Sifter([
+					{fields: {nested: 'aaa'}},
+					{fields: {nested: 'add'}},
+					{fields: {nested: 'abb'}}
+				]);
+				var result = sifter.search('', {
+					fields: [],
+					sort: {field: 'fields.nested'},
+					nesting: true
+				});
+				assert.equal(result.items[0].id, 0);
+				assert.equal(result.items[1].id, 2);
+				assert.equal(result.items[2].id, 1);
 			});
 		});
 
