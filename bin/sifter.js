@@ -22,7 +22,7 @@ var fs        = require('fs');
 var optimist  = require('optimist');
 var cardinal  = require('cardinal');
 var async     = require('async');
-var csv       = require('node-csv');
+var csv       = require('csv-parse');
 var Stream    = require('stream');
 var humanize  = require('humanize');
 var Sifter    = require('../lib/sifter');
@@ -98,11 +98,13 @@ var step_parse = function(callback) {
 
 	// csv
 	data = [];
-	csv.parse(raw, {headers: true}, function(line) {
-		if (Array.isArray(line)) return;
-		data.push(line);
+	csv(raw, {columns: true}, function(err, parsed) {
+		parsed.forEach(function(line) {
+			if (Array.isArray(line)) return;
+			data.push(line);
+		});
+		callback();
 	});
-	callback();
 };
 
 /**
