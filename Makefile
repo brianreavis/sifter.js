@@ -33,7 +33,7 @@ test-ci-coverage:
 
 compile:
 	@cp lib/sifter.js sifter.js
-	$(UGLIFYJS) --mangle -b beautify=false,ascii-only=true --output $(OUT_MIN) $(OUT)
+	$(UGLIFYJS) --mangle -b beautify=false,ascii_only=true --output $(OUT_MIN) $(OUT)
 	@echo "$(BANNER)" | cat - $(OUT_MIN) > temp && mv temp $(OUT_MIN)
 
 	@echo "`cat $(OUT_MIN) | gzip -9f | wc -c` bytes (gzipped)"

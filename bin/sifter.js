@@ -3,7 +3,7 @@
 /**
  * Sifter CLI
  *
- * Copyright (c) 2013 Brian Reavis
+ * Copyright (c) 2013-2017 Brian Reavis
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this
  * file except in compliance with the License. You may obtain a copy of the License at:
@@ -26,18 +26,7 @@ var csv       = require('csv-parse');
 var Stream    = require('stream');
 var humanize  = require('humanize');
 var Sifter    = require('../lib/sifter');
-var highlight = function(obj) { return cardinal.highlight(JSON.stringify(obj), {json: true}); };
-var microtime;
-
-try {
-	microtime = require('microtime');
-} catch(error) {
-	microtime = {
-		now: function now() {
-			return +new Date();
-		}
-	};
-}
+var highlight = function(obj) { return cardinal.highlight(JSON.stringify(obj)); };
 
 var raw, data, result, t_start, t_end;
 var argv = optimist
@@ -62,7 +51,7 @@ var step_read = function(callback) {
 	var buffer = [];
 
 	if (argv.file) {
-		fs.readFileSync(argv.file, []);
+		raw = fs.readFileSync(argv.file, 'utf8');
 		callback();
 	} else {
 		process.stdin.on('data', function(chunk) {
@@ -91,7 +80,7 @@ var step_parse = function(callback) {
 		try {
 			data = JSON.parse(raw);
 		} catch (e) {
-			return callback('Unable to parse JSON.');
+			return callback(new Error('Unable to parse JSON.'));
 		}
 		return callback();
 	}
@@ -99,6 +88,7 @@ var step_parse = function(callback) {
 	// csv
 	data = [];
 	csv(raw, {columns: true}, function(err, parsed) {
+		if (err) return callback(err);
 		parsed.forEach(function(line) {
 			if (Array.isArray(line)) return;
 			data.push(line);
@@ -119,14 +109,14 @@ var step_sift = function(callback) {
 		direction: argv.direction
 	}];
 
-	t_start = microtime.now();
+	t_start = Date.now();
 	result = sifter.search(argv.query, {
-		fields : argv.fields.split(','),
-		limit  : argv.limit,
-		sort   : sort
+		fields: (typeof argv.fields !== 'undefined' ? String(argv.fields) : '').split(','),
+		limit: argv.limit,
+		sort: sort
 	});
 
-	t_end = microtime.now();
+	t_end = Date.now();
 	callback();
 };
 
@@ -161,6 +151,6 @@ async.series([
 	step_sift,
 	step_output
 ], function(err) {
-	if (err) console.error(err);
-	process.exit(err ? 1 : 0);
+	if (err) throw err;
+	process.exit(0);
 });

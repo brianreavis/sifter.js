@@ -1,6 +1,6 @@
 /**
  * sifter.js
- * Copyright (c) 2013 Brian Reavis & contributors
+ * Copyright (c) 2013-2017 Brian Reavis & contributors
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this
  * file except in compliance with the License. You may obtain a copy of the License at:
@@ -421,11 +421,11 @@
 	 * @return {Object}          The resolved property value
 	 */
 	var getattr = function(obj, name, nesting) {
-	    if (!obj || !name) return;
-	    if (!nesting) return obj[name];
-	    var names = name.split(".");
-	    while(names.length && (obj = obj[names.shift()]));
-	    return obj;
+		if (!obj || !name) return;
+		if (!nesting) return obj[name];
+		var names = name.split(".");
+		while(names.length && (obj = obj[names.shift()]));
+		return obj;
 	};
 
 	var trim = function(str) {
