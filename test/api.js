@@ -185,6 +185,27 @@ describe('Sifter', function() {
 			assert.equal(result.items[0].id, 0);
 		});
 
+		it('should allow word boundaries to be respected', function() {
+			var sifter = new Sifter([
+				{name: 'John Smith'},
+				{name: 'Jane Doe'},
+			]);
+			var result = sifter.search('mith', {fields: 'name'});
+			assert.equal(result.items.length, 1);
+
+			var result = sifter.search('mith', {fields: 'name', respect_word_boundaries: true});
+			assert.equal(result.items.length, 0);
+
+			var result = sifter.search('Smi', {fields: 'name', respect_word_boundaries: true});
+			assert.equal(result.items.length, 1);
+
+			var result = sifter.search('John Sm', {fields: 'name', respect_word_boundaries: true});
+			assert.equal(result.items.length, 1);
+
+			var result = sifter.search('ohn Smith', {fields: 'name', respect_word_boundaries: true, conjunction: 'and'});
+			assert.equal(result.items.length, 0);
+		});
+
 		describe('sorting', function() {
 			it('should respect "sort_empty" option when query absent', function() {
 				var sifter = new Sifter([
