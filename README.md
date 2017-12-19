@@ -118,6 +118,11 @@ Performs a search for `query` with the provided `options`.
 		<td valign="top">boolean</td>
 		<td valign="top">If <code>true</code>, nested fields will be available for search and sort using dot-notation to reference them (e.g. <code>nested.property</code>)<br><em>Warning: can reduce performance</em></td>
 	</tr>
+	<tr>
+		<td valign="top"><code>respect_word_boundaries</code></td>
+		<td valign="top">boolean</td>
+		<td valign="top">If <code>true</code>, matches only at start of word boundaries (e.g. the beginning of words, instead of matching the middle of words)</td>
+	</tr>
 </table>
 
 ## CLI
