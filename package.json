@@ -30,7 +30,7 @@
     "cardinal": "^1.0.0",
     "async": "^2.6.0",
     "humanize": "^0.0.9",
-    "csv-parse": "^2.0.0"
+    "csv-parse": "^4.6.5"
   },
   "devDependencies": {
     "coveralls": "^3.0.0",
