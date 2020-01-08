@@ -1,6 +1,6 @@
 /**
  * sifter.js
- * Copyright (c) 2013 Brian Reavis & contributors
+ * Copyright (c) 2013–2020 Brian Reavis & contributors
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this
  * file except in compliance with the License. You may obtain a copy of the License at:
@@ -45,7 +45,7 @@
 	 * @param {string} query
 	 * @returns {array}
 	 */
-	Sifter.prototype.tokenize = function(query) {
+	Sifter.prototype.tokenize = function(query, respect_word_boundaries) {
 		query = trim(String(query || '').toLowerCase());
 		if (!query || !query.length) return [];
 
@@ -62,6 +62,7 @@
 					}
 				}
 			}
+			if (respect_word_boundaries) regex = "\\b"+regex
 			tokens.push({
 				string : words[i],
 				regex  : new RegExp(regex, 'i')
@@ -318,7 +319,7 @@
 		return {
 			options : options,
 			query   : String(query || '').toLowerCase(),
-			tokens  : this.tokenize(query),
+			tokens  : this.tokenize(query, options.respect_word_boundaries),
 			total   : 0,
 			items   : []
 		};
@@ -495,4 +496,3 @@
 
 	return Sifter;
 }));
-
