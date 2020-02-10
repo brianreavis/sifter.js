@@ -58,7 +58,7 @@
 			if (this.settings.diacritics) {
 				for (letter in DIACRITICS) {
 					if (DIACRITICS.hasOwnProperty(letter)) {
-						regex = regex.replace(new RegExp(letter, 'g'), DIACRITICS[letter]);
+						regex = regex.replace(new RegExp(DIACRITICS[letter], 'g'), letter );
 					}
 				}
 			}
