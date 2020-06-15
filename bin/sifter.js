@@ -19,7 +19,7 @@
 
 var path      = require('path');
 var fs        = require('fs');
-var optimist  = require('optimist');
+var yargs     = require('yargs');
 var cardinal  = require('cardinal');
 var async     = require('async');
 var csv       = require('csv-parse');
@@ -29,7 +29,7 @@ var Sifter    = require('../lib/sifter');
 var highlight = function(obj) { return cardinal.highlight(JSON.stringify(obj)); };
 
 var raw, data, result, t_start, t_end;
-var argv = optimist
+var argv = yargs
 	.usage('Usage: $0 --query="search query" --fields=a,b')
 	.default('direction', 'asc')
 	.default('sort', '')
