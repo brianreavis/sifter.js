@@ -46,13 +46,14 @@
 	 * @returns {array}
 	 */
 	Sifter.prototype.tokenize = function(query, respect_word_boundaries, single_token_only) {
+		var query_untrimmed = String(query || '').toLowerCase();
 		query = trim(String(query || '').toLowerCase());
 		if (!query || !query.length) return [];
 
 		var i, n, regex, letter, words;
 		var tokens = [];
 		if (single_token_only) {
-			words = [query];
+			words = [query_untrimmed];
 		} else {
 			words = query.split(/ +/);
 		}
