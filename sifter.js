@@ -45,13 +45,17 @@
 	 * @param {string} query
 	 * @returns {array}
 	 */
-	Sifter.prototype.tokenize = function(query, respect_word_boundaries) {
+	Sifter.prototype.tokenize = function(query, respect_word_boundaries, single_token_only) {
 		query = trim(String(query || '').toLowerCase());
 		if (!query || !query.length) return [];
 
-		var i, n, regex, letter;
+		var i, n, regex, letter, words;
 		var tokens = [];
-		var words = query.split(/ +/);
+		if (single_token_only) {
+			words = [query];
+		} else {
+			words = query.split(/ +/);
+		}
 
 		for (i = 0, n = words.length; i < n; i++) {
 			regex = escape_regex(words[i]);
@@ -319,7 +323,7 @@
 		return {
 			options : options,
 			query   : String(query || '').toLowerCase(),
-			tokens  : this.tokenize(query, options.respect_word_boundaries),
+			tokens  : this.tokenize(query, options.respect_word_boundaries, options.single_token_only),
 			total   : 0,
 			items   : []
 		};

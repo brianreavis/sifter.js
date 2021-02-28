@@ -123,6 +123,11 @@ Performs a search for `query` with the provided `options`.
 		<td valign="top">boolean</td>
 		<td valign="top">If <code>true</code>, matches only at start of word boundaries (e.g. the beginning of words, instead of matching the middle of words)</td>
 	</tr>
+	<tr>
+		<td valign="top"><code>single_token_only</code></td>
+		<td valign="top">boolean</td>
+		<td valign="top">If <code>true</code>, the whole search query is considered just one token, and the search query is not splitted into words.</td>
+	</tr>
 </table>
 
 ## CLI
