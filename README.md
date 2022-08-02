@@ -151,6 +151,10 @@ First build a copy with `make` then run the test suite with `make test`.
 
 When issuing a pull request, please exclude "sifter.js" and "sifter.min.js" in the project root.
 
+## Alternatives
+
+[MiniSearch](https://github.com/lucaong/minisearch) is another JS library with many similarities to Sifter. If Sifter doesn't work for your use-case, you should check it out.
+
 ## License
 
 Copyright &copy; 2013–2020 [Brian Reavis](http://twitter.com/brianreavis) & [Contributors](https://github.com/brianreavis/sifter.js/graphs/contributors)
